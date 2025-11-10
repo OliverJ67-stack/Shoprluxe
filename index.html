@@ -1,376 +1,395 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop R Luxe</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #fff;
-            color: #111;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop R Luxe</title>
+<style>
+/* --- ESTILOS GENERALES --- */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    color: #111;
+}
+header {
+    text-align: center;
+    background: linear-gradient(to right, #fff, #d4af37);
+    padding: 20px;
+    border-bottom: 3px solid #d4af37;
+}
+.logo { width: 120px; }
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #b5942d;
+    margin: 10px 0;
+    font-size: 30px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(212,175,55,0.4);
+    animation: brillo 4s infinite alternate;
+}
+@keyframes brillo {
+    0% { text-shadow: 0 0 8px rgba(212,175,55,0.4);}
+    100% { text-shadow: 0 0 25px rgba(212,175,55,0.9);}
+}
+nav button {
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+nav button:hover {
+    background-color: #b5942d;
+    box-shadow: 0 0 15px #d4af37;
+}
 
-        header {
-            text-align: center;
-            background: linear-gradient(to right, #fff, #d4af37);
-            padding: 20px;
-            border-bottom: 3px solid #d4af37;
-        }
+/* --- PRODUCTOS EN COLUMNA --- */
+.productos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+.producto {
+    background-color: #fff;
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin: 20px 0;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.producto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(212,175,55,0.8);
+}
+.producto img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.producto h2 {
+    color: #b5942d;
+    font-family: 'Cinzel', serif;
+    margin: 10px 0;
+}
+.producto p { font-size: 18px; font-weight: bold; }
 
-        .logo {
-            width: 120px;
-        }
+.botones-producto {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.botones-producto button { flex: 1; }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            color: #b5942d;
-            margin: 10px 0;
-            font-size: 30px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
-            animation: brillo 4s infinite alternate;
-        }
+/* --- BOTONES --- */
+button {
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #b5942d;
+    box-shadow: 0 0 10px #d4af37;
+}
 
-        @keyframes brillo {
-            0% { text-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
-            100% { text-shadow: 0 0 25px rgba(212, 175, 55, 0.9); }
-        }
+/* --- CARRITO --- */
+.carrito {
+    position: fixed;
+    top: 100px;
+    right: 50px;
+    background-color: #fff;
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    width: 320px;
+    box-shadow: 0 0 15px #d4af37;
+    z-index: 100;
+    display: none;
+}
+.carrito-header {
+    background-color: #d4af37;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    cursor: move;
+}
+.cerrar-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.cerrar-btn:hover { color: red; }
+.carrito-body { padding: 15px; max-height: 500px; overflow-y: auto; }
+#listaCarrito { list-style: none; padding: 0; margin: 0; }
+#listaCarrito li {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #d4af37;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#total { font-weight: bold; color: #b5942d; }
 
-        nav button {
-            background-color: #d4af37;
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+/* --- FORMULARIO --- */
+#toggleForm {
+    cursor: pointer;
+    color: #b5942d;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+#toggleForm:hover { color: #d4af37; text-shadow: 0 0 5px #d4af37; }
+#formCompra {
+    margin-top: 10px;
+    border-top: 2px solid #d4af37;
+    padding-top: 10px;
+    display: none;
+}
+#formCompra input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px;
+    border: 1px solid #d4af37;
+    border-radius: 5px;
+}
+#formCompra button { width: 100%; margin-top: 10px; }
+.input-error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+#mensajeFinal {
+    color: #111;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    margin-top: 8px;
+}
 
-        nav button:hover {
-            background-color: #b5942d;
-            box-shadow: 0 0 15px #d4af37;
-        }
+/* --- MODAL --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+.modal.activo { display: flex; }
+.modal-contenido {
+    background: #fff;
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+.modal-contenido img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.modal-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-cerrar:hover { color: red; }
 
-        .productos {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-        }
-
-        .producto {
-            background-color: #fff;
-            border: 2px solid #d4af37;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 400px;
-            margin: 20px 0;
-            text-align: center;
-            padding: 15px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .producto:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-        }
-
-        .producto img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid transparent;
-            transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .producto img:hover {
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
-        }
-
-        .producto h2 {
-            color: #b5942d;
-            font-family: 'Cinzel', serif;
-            margin: 10px 0;
-        }
-
-        .producto p {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        button {
-            background-color: #d4af37;
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #b5942d;
-            box-shadow: 0 0 10px #d4af37;
-        }
-
-        .carrito {
-            position: fixed;
-            top: 100px;
-            right: 50px;
-            background-color: #fff;
-            border: 2px solid #d4af37;
-            border-radius: 10px;
-            width: 320px;
-            padding: 0;
-            box-shadow: 0 0 15px #d4af37;
-            z-index: 100;
-            cursor: default;
-        }
-
-        .carrito-header {
-            background-color: #d4af37;
-            color: #000;
-            font-weight: bold;
-            padding: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            cursor: move;
-            user-select: none;
-            text-align: center;
-        }
-
-        .carrito-body {
-            padding: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .oculto {
-            display: none;
-        }
-
-        #listaCarrito {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #listaCarrito li {
-            margin-bottom: 8px;
-            border-bottom: 1px solid #d4af37;
-            padding-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #total {
-            font-weight: bold;
-            color: #b5942d;
-        }
-
-        footer {
-            background-color: #000;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 14px;
-        }
-
-        .eliminar {
-            background: none;
-            border: none;
-            color: red;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        #formCompra {
-            margin-top: 10px;
-            border-top: 2px solid #d4af37;
-            padding-top: 10px;
-        }
-
-        #formCompra input {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0 10px;
-            border: 1px solid #d4af37;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        #formCompra h3 {
-            color: #b5942d;
-            font-family: 'Cinzel', serif;
-            text-align: center;
-        }
-
-        #formCompra button {
-            width: 100%;
-            margin-top: 10px;
-        }
-    </style>
+footer {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
+</style>
 </head>
 <body>
 
-    <audio autoplay loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c7a726a74.mp3?filename=luxury-vibes-11294.mp3" type="audio/mpeg">
-    </audio>
+<header>
+    <img src="logo.jpg" alt="R LUXE Logo" class="logo">
+    <h1>SHOP R LUXE</h1>
+    <nav><button onclick="verCarrito()">🛒 Carrito (<span id="contador">0</span>)</button></nav>
+</header>
 
-    <header>
-        <img src="logo.jpg" alt="R LUXE Logo" class="logo">
-        <h1>SHOP R LUXE</h1>
-        <nav>
-            <button onclick="verCarrito()">🛒 Carrito (<span id="contador">0</span>)</button>
-        </nav>
-    </header>
-
-    <section class="productos">
-        <div class="producto">
-            <img src="playera_oversize.jpg" alt="Playera Oversize">
-            <h2>Playera Oversize</h2>
-            <p>$450 MXN</p>
-            <button onclick="agregarAlCarrito('Playera Oversize', 450)">Agregar al carrito</button>
-        </div>
-
-        <div class="producto">
-            <img src="playera_angels.jpg" alt="Playera Angels">
-            <h2>Playera Angels</h2>
-            <p>$480 MXN</p>
-            <button onclick="agregarAlCarrito('Playera Angels', 480)">Agregar al carrito</button>
-        </div>
-
-        <div class="producto">
-            <img src="gorra_dandy.jpg" alt="Gorra Dandy">
-            <h2>Gorra Dandy</h2>
-            <p>$500 MXN</p>
-            <button onclick="agregarAlCarrito('Gorra Dandy', 500)">Agregar al carrito</button>
-        </div>
-
-        <div class="producto">
-            <img src="cadenas_ac.jpg" alt="Accesorios Luxe">
-            <h2>Accesorios Luxe</h2>
-            <p>$380 MXN</p>
-            <button onclick="agregarAlCarrito('Accesorios Luxe', 380)">Agregar al carrito</button>
-        </div>
-
-        <div class="producto">
-            <img src="perfume.jpg" alt="Perfume R Luxe">
-            <h2>Perfume R Luxe</h2>
-            <p>$490 MXN</p>
-            <button onclick="agregarAlCarrito('Perfume R Luxe', 490)">Agregar al carrito</button>
-        </div>
-    </section>
-
-    <div id="carrito" class="carrito oculto">
-        <div class="carrito-header" id="carritoHeader">🛍️ Tu carrito</div>
-        <div class="carrito-body">
-            <ul id="listaCarrito"></ul>
-            <p id="total"></p>
-            <button onclick="mostrarFormulario()">Realizar compra 💳</button>
-            <button onclick="cerrarCarrito()">Cerrar</button>
-
-            <div id="formCompra" class="oculto">
-                <h3>Datos de Compra</h3>
-                <input type="text" placeholder="Nombre completo">
-                <input type="text" placeholder="Dirección de envío">
-                <input type="email" placeholder="Correo electrónico">
-                <input type="text" placeholder="Número de tarjeta (no real)">
-                <input type="text" placeholder="Fecha de vencimiento (MM/AA)">
-                <input type="text" placeholder="CVV (no real)">
-                <button onclick="enviarCompra()">Enviar pedido</button>
-            </div>
+<section class="productos">
+    <div class="producto">
+        <img src="playera_oversize.jpg" onclick="verProducto('Playera Oversize','playera_oversize.jpg',450)">
+        <h2>Playera Oversize</h2>
+        <p>$450 MXN</p>
+        <div class="botones-producto">
+            <button onclick="verProducto('Playera Oversize','playera_oversize.jpg',450)">Ver producto</button>
+            <button onclick="agregarAlCarrito('Playera Oversize',450)">Agregar 🛒</button>
         </div>
     </div>
+    <div class="producto">
+        <img src="playera_angels.jpg" onclick="verProducto('Playera Angels','playera_angels.jpg',480)">
+        <h2>Playera Angels</h2>
+        <p>$480 MXN</p>
+        <div class="botones-producto">
+            <button onclick="verProducto('Playera Angels','playera_angels.jpg',480)">Ver producto</button>
+            <button onclick="agregarAlCarrito('Playera Angels',480)">Agregar 🛒</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="gorra_dandy.jpg" onclick="verProducto('Gorra Dandy','gorra_dandy.jpg',500)">
+        <h2>Gorra Dandy</h2>
+        <p>$500 MXN</p>
+        <div class="botones-producto">
+            <button onclick="verProducto('Gorra Dandy','gorra_dandy.jpg',500)">Ver producto</button>
+            <button onclick="agregarAlCarrito('Gorra Dandy',500)">Agregar 🛒</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="cadenas_ac.jpg" onclick="verProducto('Accesorios Luxe','cadenas_ac.jpg',380)">
+        <h2>Accesorios Luxe</h2>
+        <p>$380 MXN</p>
+        <div class="botones-producto">
+            <button onclick="verProducto('Accesorios Luxe','cadenas_ac.jpg',380)">Ver producto</button>
+            <button onclick="agregarAlCarrito('Accesorios Luxe',380)">Agregar 🛒</button>
+        </div>
+    </div>
+    <div class="producto">
+        <img src="perfume.jpg" onclick="verProducto('Perfume R Luxe','perfume.jpg',490)">
+        <h2>Perfume R Luxe</h2>
+        <p>$490 MXN</p>
+        <div class="botones-producto">
+            <button onclick="verProducto('Perfume R Luxe','perfume.jpg',490)">Ver producto</button>
+            <button onclick="agregarAlCarrito('Perfume R Luxe',490)">Agregar 🛒</button>
+        </div>
+    </div>
+</section>
 
-    <footer>
-        <p>© 2025 Shop R Luxe | Estilo y Elegancia Urbana</p>
-    </footer>
+<!-- Modal -->
+<div id="modal" class="modal" onclick="cerrarModal()">
+  <div class="modal-contenido" onclick="event.stopPropagation()">
+    <button class="modal-cerrar" onclick="cerrarModal()">✖</button>
+    <img id="modalImg" src="">
+    <h2 id="modalNombre"></h2>
+    <p id="modalPrecio"></p>
+    <button id="btnAgregarModal">Agregar al carrito 🛒</button>
+  </div>
+</div>
 
-    <script>
-        let carrito = [];
-        let total = 0;
-        const lista = document.getElementById("listaCarrito");
-        const totalEl = document.getElementById("total");
-        const contador = document.getElementById("contador");
-        const divCarrito = document.getElementById("carrito");
-        const formCompra = document.getElementById("formCompra");
+<!-- Carrito -->
+<div id="carrito" class="carrito">
+  <div class="carrito-header" id="carritoHeader">🛍️ Tu carrito
+    <button class="cerrar-btn" onclick="cerrarCarrito()">✖</button>
+  </div>
+  <div class="carrito-body">
+    <ul id="listaCarrito"></ul>
+    <p id="total"></p>
+    <div id="toggleForm" onclick="mostrarFormulario()">💳 Realizar compra</div>
+    <div id="formCompra">
+      <h3>Datos de Compra</h3>
+      <input type="text" id="nombreCliente" placeholder="Nombre completo">
+      <input type="text" placeholder="Dirección de envío">
+      <input type="email" placeholder="Correo electrónico">
+      <input type="text" id="tarjeta" placeholder="Número de tarjeta" maxlength="16">
+      <input type="text" id="vencimiento" placeholder="Vencimiento (MM/AA)" maxlength="5">
+      <input type="text" id="cvv" placeholder="CVV" maxlength="3">
+      <button onclick="enviarCompra()">Enviar pedido</button>
+      <p id="mensajeFinal"></p>
+    </div>
+  </div>
+</div>
 
-        function actualizarCarrito() {
-            lista.innerHTML = "";
-            carrito.forEach((item, index) => {
-                const li = document.createElement("li");
-                li.textContent = `${item.producto} - $${item.precio}`;
-                const btnEliminar = document.createElement("button");
-                btnEliminar.textContent = "❌";
-                btnEliminar.classList.add("eliminar");
-                btnEliminar.onclick = () => eliminarDelCarrito(index);
-                li.appendChild(btnEliminar);
-                lista.appendChild(li);
-            });
-            totalEl.textContent = `Total: $${total} MXN`;
-            contador.textContent = carrito.length;
-        }
+<footer><p>© 2025 Shop R Luxe | Estilo y Elegancia Urbana</p></footer>
 
-        function agregarAlCarrito(producto, precio) {
-            carrito.push({ producto, precio });
-            total += precio;
-            actualizarCarrito();
-        }
+<script>
+let carrito=[], total=0, productoActual={};
+const lista=document.getElementById("listaCarrito"), totalEl=document.getElementById("total"),
+contador=document.getElementById("contador"), divCarrito=document.getElementById("carrito"),
+formCompra=document.getElementById("formCompra"), mensajeFinal=document.getElementById("mensajeFinal"),
+tarjeta=document.getElementById("tarjeta"), vencimiento=document.getElementById("vencimiento"),
+modal=document.getElementById("modal"), modalImg=document.getElementById("modalImg"),
+modalNombre=document.getElementById("modalNombre"), modalPrecio=document.getElementById("modalPrecio"),
+btnAgregarModal=document.getElementById("btnAgregarModal");
 
-        function eliminarDelCarrito(index) {
-            total -= carrito[index].precio;
-            carrito.splice(index, 1);
-            actualizarCarrito();
-        }
+tarjeta.addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,""));
+vencimiento.addEventListener("input",e=>{
+  let v=e.target.value.replace(/\D/g,"");
+  if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2,4);
+  e.target.value=v.slice(0,5);
+});
+document.getElementById("cvv").addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,""));
 
-        function verCarrito() {
-            divCarrito.classList.remove("oculto");
-            formCompra.classList.add("oculto");
-            actualizarCarrito();
-        }
+function verProducto(n,img,pr){productoActual={nombre:n,precio:pr};
+  modalImg.src=img; modalNombre.textContent=n; modalPrecio.textContent=`$${pr} MXN`; modal.classList.add("activo");}
+function cerrarModal(){modal.classList.remove("activo");}
+btnAgregarModal.onclick=()=>{agregarAlCarrito(productoActual.nombre,productoActual.precio);cerrarModal();};
 
-        function cerrarCarrito() {
-            divCarrito.classList.add("oculto");
-        }
+function actualizarCarrito(){
+  lista.innerHTML="";
+  carrito.forEach((it,i)=>{
+    const li=document.createElement("li");
+    li.textContent=`${it.producto} - $${it.precio}`;
+    const b=document.createElement("button");
+    b.textContent="❌"; b.classList.add("eliminar");
+    b.onclick=()=>eliminarDelCarrito(i);
+    li.appendChild(b); lista.appendChild(li);
+  });
+  totalEl.textContent=`Total: $${total} MXN`;
+  contador.textContent=carrito.length;
+}
+function agregarAlCarrito(p,pr){carrito.push({producto:p,precio:pr}); total+=pr; actualizarCarrito(); divCarrito.style.display="block";}
+function eliminarDelCarrito(i){total-=carrito[i].precio; carrito.splice(i,1); actualizarCarrito();}
+function verCarrito(){divCarrito.style.display="block"; formCompra.style.display="none"; actualizarCarrito();}
+function cerrarCarrito(){divCarrito.style.display="none";}
+function mostrarFormulario(){formCompra.style.display=formCompra.style.display==="block"?"none":"block"; mensajeFinal.textContent="";}
 
-        function mostrarFormulario() {
-            formCompra.classList.toggle("oculto");
-        }
+function enviarCompra(){
+  const campos=formCompra.querySelectorAll("input");
+  let valido=true;
+  campos.forEach(c=>{c.classList.remove("input-error"); if(!c.value.trim()){c.classList.add("input-error"); valido=false;}});
+  if(!valido){mensajeFinal.textContent="Por favor completa todos los campos."; mensajeFinal.style.color="red"; return;}
+  const nombre=document.getElementById("nombreCliente").value.trim();
+  mensajeFinal.style.color="#000";
+  mensajeFinal.textContent=`Gracias ${nombre}, tu pedido ha sido recibido. ¡Gracias por tu compra! 🛍️`;
+}
 
-        function enviarCompra() {
-            alert("🛍️ Gracias por tu compra. Este formulario es solo de ejemplo para el proyecto.");
-        }
-
-        // --- 🔥 Hacer el carrito movible con el mouse ---
-        const header = document.getElementById("carritoHeader");
-        let offsetX = 0, offsetY = 0, dragging = false;
-
-        header.addEventListener("mousedown", e => {
-            dragging = true;
-            offsetX = e.clientX - divCarrito.offsetLeft;
-            offsetY = e.clientY - divCarrito.offsetTop;
-        });
-
-        document.addEventListener("mousemove", e => {
-            if (dragging) {
-                divCarrito.style.left = e.clientX - offsetX + "px";
-                divCarrito.style.top = e.clientY - offsetY + "px";
-                divCarrito.style.right = "auto"; // evitar que se pegue al borde
-            }
-        });
-
-        document.addEventListener("mouseup", () => dragging = false);
-    </script>
-
+const header=document.getElementById("carritoHeader");
+let drag=false,offX=0,offY=0;
+header.addEventListener("mousedown",e=>{drag=true;offX=e.clientX-divCarrito.offsetLeft;offY=e.clientY-divCarrito.offsetTop;});
+document.addEventListener("mousemove",e=>{if(drag){divCarrito.style.left=e.clientX-offX+"px";divCarrito.style.top=e.clientY-offY+"px";divCarrito.style.right="auto";}});
+document.addEventListener("mouseup",()=>drag=false);
+</script>
 </body>
 </html>
 
