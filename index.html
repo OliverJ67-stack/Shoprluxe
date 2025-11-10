@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop R Luxe</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: #111;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(to right, #fff, #d4af37);
+            padding: 20px;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .logo {
+            width: 120px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: #b5942d;
+            margin: 10px 0;
+            font-size: 30px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            animation: brillo 4s infinite alternate;
+        }
+
+        @keyframes brillo {
+            0% { text-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+            100% { text-shadow: 0 0 25px rgba(212, 175, 55, 0.9); }
+        }
+
+        nav button {
+            background-color: #d4af37;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav button:hover {
+            background-color: #b5942d;
+            box-shadow: 0 0 15px #d4af37;
+        }
+
+        .productos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .producto {
+            background-color: #fff;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            margin: 20px 0;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .producto:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+        }
+
+        .producto img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .producto img:hover {
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+        }
+
+        .producto h2 {
+            color: #b5942d;
+            font-family: 'Cinzel', serif;
+            margin: 10px 0;
+        }
+
+        .producto p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #d4af37;
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #b5942d;
+            box-shadow: 0 0 10px #d4af37;
+        }
+
+        .carrito {
+            position: fixed;
+            top: 70px;
+            right: 50px;
+            background-color: #fff;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            width: 320px;
+            padding: 20px;
+            box-shadow: 0 0 15px #d4af37;
+            z-index: 100;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        #listaCarrito {
+            list-style: none;
+            padding: 0;
+        }
+
+        #listaCarrito li {
+            margin-bottom: 8px;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #total {
+            font-weight: bold;
+            color: #b5942d;
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .eliminar {
+            background: none;
+            border: none;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Estilo del formulario */
+        #formCompra {
+            margin-top: 15px;
+            border-top: 2px solid #d4af37;
+            padding-top: 10px;
+        }
+
+        #formCompra input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #formCompra h3 {
+            color: #b5942d;
+            font-family: 'Cinzel', serif;
+            text-align: center;
+        }
+
+        #formCompra button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c7a726a74.mp3?filename=luxury-vibes-11294.mp3" type="audio/mpeg">
+    </audio>
+
+    <header>
+        <img src="logo.jpg" alt="R LUXE Logo" class="logo">
+        <h1>SHOP R LUXE</h1>
+        <nav>
+            <button onclick="verCarrito()">🛒 Carrito (<span id="contador">0</span>)</button>
+        </nav>
+    </header>
+
+    <section class="productos">
+        <div class="producto">
+            <img src="playera_oversize.jpg" alt="Playera Oversize">
+            <h2>Playera Oversize</h2>
+            <p>$450 MXN</p>
+            <button onclick="agregarAlCarrito('Playera Oversize', 450)">Agregar al carrito</button>
+        </div>
+
+        <div class="producto">
+            <img src="playera_angels.jpg" alt="Playera Angels">
+            <h2>Playera Angels</h2>
+            <p>$480 MXN</p>
+            <button onclick="agregarAlCarrito('Playera Angels', 480)">Agregar al carrito</button>
+        </div>
+
+        <div class="producto">
+            <img src="gorra_dandy.jpg" alt="Gorra Dandy">
+            <h2>Gorra Dandy</h2>
+            <p>$500 MXN</p>
+            <button onclick="agregarAlCarrito('Gorra Dandy', 500)">Agregar al carrito</button>
+        </div>
+
+        <div class="producto">
+            <img src="cadenas_ac.jpg" alt="Accesorios Luxe">
+            <h2>Accesorios Luxe</h2>
+            <p>$380 MXN</p>
+            <button onclick="agregarAlCarrito('Accesorios Luxe', 380)">Agregar al carrito</button>
+        </div>
+
+        <div class="producto">
+            <img src="perfume.jpg" alt="Perfume R Luxe">
+            <h2>Perfume R Luxe</h2>
+            <p>$490 MXN</p>
+            <button onclick="agregarAlCarrito('Perfume R Luxe', 490)">Agregar al carrito</button>
+        </div>
+    </section>
+
+    <div id="carrito" class="carrito oculto">
+        <h2>🛍️ Tu carrito</h2>
+        <ul id="listaCarrito"></ul>
+        <p id="total"></p>
+        <button onclick="mostrarFormulario()">Realizar compra 💳</button>
+        <button onclick="cerrarCarrito()">Cerrar</button>
+
+        <div id="formCompra" class="oculto">
+            <h3>Datos de Compra</h3>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Dirección de envío">
+            <input type="email" placeholder="Correo electrónico">
+            <input type="text" placeholder="Número de tarjeta (no real)">
+            <input type="text" placeholder="Fecha de vencimiento (MM/AA)">
+            <input type="text" placeholder="CVV (no real)">
+            <button onclick="enviarCompra()">Enviar pedido</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Shop R Luxe | Estilo y Elegancia Urbana</p>
+    </footer>
+
+    <script>
+        let carrito = [];
+        let total = 0;
+        const lista = document.getElementById("listaCarrito");
+        const totalEl = document.getElementById("total");
+        const contador = document.getElementById("contador");
+        const divCarrito = document.getElementById("carrito");
+        const formCompra = document.getElementById("formCompra");
+
+        function actualizarCarrito() {
+            lista.innerHTML = "";
+            carrito.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.textContent = `${item.producto} - $${item.precio}`;
+                const btnEliminar = document.createElement("button");
+                btnEliminar.textContent = "❌";
+                btnEliminar.classList.add("eliminar");
+                btnEliminar.onclick = () => eliminarDelCarrito(index);
+                li.appendChild(btnEliminar);
+                lista.appendChild(li);
+            });
+            totalEl.textContent = `Total: $${total} MXN`;
+            contador.textContent = carrito.length;
+        }
+
+        function agregarAlCarrito(producto, precio) {
+            carrito.push({ producto, precio });
+            total += precio;
+            actualizarCarrito();
+        }
+
+        function eliminarDelCarrito(index) {
+            total -= carrito[index].precio;
+            carrito.splice(index, 1);
+            actualizarCarrito();
+        }
+
+        function verCarrito() {
+            divCarrito.classList.remove("oculto");
+            formCompra.classList.add("oculto");
+            actualizarCarrito();
+        }
+
+        function cerrarCarrito() {
+            divCarrito.classList.add("oculto");
+        }
+
+        function mostrarFormulario() {
+            formCompra.classList.toggle("oculto");
+        }
+
+        function enviarCompra() {
+            alert("🛍️ Gracias por tu compra. Este formulario es solo de ejemplo para el proyecto.");
+        }
+    </script>
+
+</body>
+</html>
+
