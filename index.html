@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -121,15 +122,34 @@
 
         .carrito {
             position: fixed;
-            top: 70px;
+            top: 100px;
             right: 50px;
             background-color: #fff;
             border: 2px solid #d4af37;
             border-radius: 10px;
             width: 320px;
-            padding: 20px;
+            padding: 0;
             box-shadow: 0 0 15px #d4af37;
             z-index: 100;
+            cursor: default;
+        }
+
+        .carrito-header {
+            background-color: #d4af37;
+            color: #000;
+            font-weight: bold;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            cursor: move;
+            user-select: none;
+            text-align: center;
+        }
+
+        .carrito-body {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .oculto {
@@ -139,6 +159,7 @@
         #listaCarrito {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         #listaCarrito li {
@@ -171,9 +192,8 @@
             cursor: pointer;
         }
 
-        /* Estilo del formulario */
         #formCompra {
-            margin-top: 15px;
+            margin-top: 10px;
             border-top: 2px solid #d4af37;
             padding-top: 10px;
         }
@@ -251,21 +271,23 @@
     </section>
 
     <div id="carrito" class="carrito oculto">
-        <h2>🛍️ Tu carrito</h2>
-        <ul id="listaCarrito"></ul>
-        <p id="total"></p>
-        <button onclick="mostrarFormulario()">Realizar compra 💳</button>
-        <button onclick="cerrarCarrito()">Cerrar</button>
+        <div class="carrito-header" id="carritoHeader">🛍️ Tu carrito</div>
+        <div class="carrito-body">
+            <ul id="listaCarrito"></ul>
+            <p id="total"></p>
+            <button onclick="mostrarFormulario()">Realizar compra 💳</button>
+            <button onclick="cerrarCarrito()">Cerrar</button>
 
-        <div id="formCompra" class="oculto">
-            <h3>Datos de Compra</h3>
-            <input type="text" placeholder="Nombre completo">
-            <input type="text" placeholder="Dirección de envío">
-            <input type="email" placeholder="Correo electrónico">
-            <input type="text" placeholder="Número de tarjeta (no real)">
-            <input type="text" placeholder="Fecha de vencimiento (MM/AA)">
-            <input type="text" placeholder="CVV (no real)">
-            <button onclick="enviarCompra()">Enviar pedido</button>
+            <div id="formCompra" class="oculto">
+                <h3>Datos de Compra</h3>
+                <input type="text" placeholder="Nombre completo">
+                <input type="text" placeholder="Dirección de envío">
+                <input type="email" placeholder="Correo electrónico">
+                <input type="text" placeholder="Número de tarjeta (no real)">
+                <input type="text" placeholder="Fecha de vencimiento (MM/AA)">
+                <input type="text" placeholder="CVV (no real)">
+                <button onclick="enviarCompra()">Enviar pedido</button>
+            </div>
         </div>
     </div>
 
@@ -327,8 +349,29 @@
         function enviarCompra() {
             alert("🛍️ Gracias por tu compra. Este formulario es solo de ejemplo para el proyecto.");
         }
+
+        // --- 🔥 Hacer el carrito movible con el mouse ---
+        const header = document.getElementById("carritoHeader");
+        let offsetX = 0, offsetY = 0, dragging = false;
+
+        header.addEventListener("mousedown", e => {
+            dragging = true;
+            offsetX = e.clientX - divCarrito.offsetLeft;
+            offsetY = e.clientY - divCarrito.offsetTop;
+        });
+
+        document.addEventListener("mousemove", e => {
+            if (dragging) {
+                divCarrito.style.left = e.clientX - offsetX + "px";
+                divCarrito.style.top = e.clientY - offsetY + "px";
+                divCarrito.style.right = "auto"; // evitar que se pegue al borde
+            }
+        });
+
+        document.addEventListener("mouseup", () => dragging = false);
     </script>
 
 </body>
 </html>
+
 
